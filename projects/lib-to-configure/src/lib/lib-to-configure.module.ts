@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import {
   DefaultLibConfiguration,
   LibConfiguration,
@@ -14,15 +14,12 @@ import { LibToConfigureComponent } from './lib-to-configure.component';
 })
 export class LibToConfigureModule {
   static forRoot(
-    libModuleConfiguration: LibConfiguration = {}
+    libModuleConfiguration: Provider
   ): ModuleWithProviders<LibToConfigureModule> {
     return {
       ngModule: LibToConfigureModule,
       providers: [
-        libModuleConfiguration.config || {
-          provide: LibConfigurationProvider,
-          useClass: DefaultLibConfiguration,
-        },
+        libModuleConfiguration
       ],
     };
   }

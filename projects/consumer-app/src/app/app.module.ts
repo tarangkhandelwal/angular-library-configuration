@@ -47,10 +47,8 @@ export class ConfigFromApp implements LibConfigurationProvider {
     BrowserModule,
     HttpClientModule,
     LibToConfigureModule.forRoot({
-      config: {
         provide: LibConfigurationProvider,
         useClass: ConfigFromApp,
-      },
     }),
   ],
   providers: [
