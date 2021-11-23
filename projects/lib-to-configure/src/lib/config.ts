@@ -8,7 +8,7 @@ export class LibConfiguration {
   config?: Provider;
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export abstract class LibConfigurationProvider {
   abstract get config(): LibToConfigureConfiguration;
 }

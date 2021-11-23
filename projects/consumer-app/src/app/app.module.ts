@@ -21,18 +21,19 @@ export class ConfigurationStore {
   }
 }
 
-export function initApp(configurationStore: ConfigurationStore) {
+export function initApp(configurationStore: ConfigurationStore, configProvider: LibConfigurationProvider) {
   return () => {
     return new Promise<void>((resolve) => {
       setTimeout(() => {
         configurationStore.setConfig({ some: 'Fabian' });
+        console.log(configProvider, 'config provider inside app initializer');
         resolve();
       }, 2000);
     });
   };
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class ConfigFromApp implements LibConfigurationProvider {
   constructor(private configStore: ConfigurationStore) {}
 
@@ -56,7 +57,7 @@ export class ConfigFromApp implements LibConfigurationProvider {
       provide: APP_INITIALIZER,
       useFactory: initApp,
       multi: true,
-      deps: [ConfigurationStore],
+      deps: [ConfigurationStore, LibConfigurationProvider],
     },
   ],
   bootstrap: [AppComponent],
